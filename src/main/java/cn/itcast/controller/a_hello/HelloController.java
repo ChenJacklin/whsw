@@ -54,8 +54,9 @@ public class HelloController {
     @RequestMapping(value = "hello.do")
     public String hello(){
         System.out.println("处理请求的方法......");
-        return "success";
         System.out.println("-----------------------------");
+        return "success";
+    
         
     }
 }
