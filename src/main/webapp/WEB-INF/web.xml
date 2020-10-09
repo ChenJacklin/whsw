@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://java.sun.com/xml/ns/javaee"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+		 version="2.5">
+
+	<!--
+		web.xml（最先加载的配置文件）
+			1. 项目部署描述文件，是用来描述项目的，描述项目架构用的技术栈；
+			2. 项目一启动，首先加载的配置文件就是——>web.xml
+
+		SpringMVC配置:
+			1、 配置SpringMVC的核心控制器，也叫做前端控制器
+			2、 这个前端控制器是一个Servlet，叫做DispatcherServlet
+			3、 这个前端控制器是用来拦截请求的，"所有的springmvc请求" -> 必须经过这个servlet
+			4、 如果你要用springmvc的功能，必须让请求经过这个servlet
+			5、 拦截的请求路径
+			   *.do  拦截所有以.do作为后缀的请求
+			   		 http://localhost:8080/hello  	  DispatcherServlet没有拦截
+			   		 http://localhost:8080/hello.do   DispatcherServlet有拦截
+			   注意： 不能写 /*
+			6、加载springMVC.xml配置文件，初始化IOC容器
+			7、配置启动时候就创建当前servlet
+			  load-on-startup 配置启动初始化，数字越小越先加载-->
+
+	<!--1、定义Servlet_xml的类全名-->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name><!--起别名-->
+		<!--配置springMVC提供好的类全名：org.springframework.web.servlet.DispatcherServlet-->
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class><!--SpringMVC前端控制器：拦截处理请求与响应-->
+
+		<init-param><!--init初始化方法：服务器创建当前Servlet对象后调用，首次运行且只运行一次！！！-->
+			<param-name>contextConfigLocation</param-name><!--首次加载本地的xml配置文件-->
+			<param-value>classpath:springXML.xml</param-value><!--去类路径找springXML-->
+		</init-param>
+
+		<load-on-startup>1</load-on-startup><!--设置Servlet在服务器启动时就创建，数字越小越早创建！！！-->
+	</servlet>
+	<!--2、给dispatcherServlet配置映射路径url-->
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>*.do</url-pattern><!--拦截所有以.do为后缀的请求-->
+	</servlet-mapping>
+
+
+	<!--1、Spring提供了统一的编码过滤器，解决提交数据中文乱码问题。-->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!--指定编码-->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+	</filter>
+	<!--2、 给characterEncodingFilter配置映射路径url（需要拦截的路径）-->
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern><!--拦截当前资源部署目录的所有资源请求-->
+	</filter-mapping>
+
+</web-app>

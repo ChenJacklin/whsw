@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <modelVersion>4.0.0</modelVersion>  
+  <groupId>cn.itcast</groupId>  
+  <artifactId>spring04_mvc01</artifactId>  
+  <version>1.0-SNAPSHOT</version>  
+  <packaging>war</packaging>
+
+
+  <dependencies>
+    <!--1.Spring核心容器支持包-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>5.1.8.RELEASE</version>
+    </dependency>
+    <!--2.SpringMVC支持包-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>5.1.8.RELEASE</version>
+    </dependency>
+
+    <!--3.添加servletApi-->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+      <scope>provided</scope><!--servlrt包的作用域：只能在mian和test使用！！！target使用不了！！！-->
+      <!--scope标签：用于设置当前jar的依赖范围，就是设置jar包在哪里使用-->
+    </dependency>
+  </dependencies>
+
+ <!--配置私服-->
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+
+</project>
